@@ -10,12 +10,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.nd.httpproxy.DB.Sdata;
 import com.nd.httpproxy.R;
-import com.nd.httpproxy.WifiDirectPkg.MainActivity;
 
 import java.io.IOException;
 import java.net.ServerSocket;

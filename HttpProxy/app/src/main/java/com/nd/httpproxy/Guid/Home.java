@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -16,6 +14,9 @@ import com.nd.httpproxy.DB.Sdata;
 import com.nd.httpproxy.R;
 import com.nd.httpproxy.ServerHelper;
 import com.nd.httpproxy.WifiDirectPkg.MainActivity;
+import com.nd.httpproxy.WifiDirectPkg.WifiAccessPoint;
+import com.nd.httpproxy.WifiDirectPkg.WifiConnection;
+import com.nd.httpproxy.WifiDirectPkg.WifiServiceSearcher;
 
 public class Home extends AppCompatActivity {
 
@@ -23,6 +24,9 @@ public class Home extends AppCompatActivity {
     Button b_start, b_stop;
     ToggleButton tb_server;
     private ServerHelper serverHelper;
+
+    WifiAccessPoint mWifiAccessPoint = null;
+    WifiConnection mWifiConnection = null;
 
     @Override
     protected void onStart() {
@@ -46,7 +50,14 @@ public class Home extends AppCompatActivity {
                 if( Sdata.getServerStatus() == false ) {
                     serverHelper.startService(Sdata.getPort(), Sdata.getNameOfServer());
                     serverHelper.startLogs(tv_logs);
-                    startActivity(new Intent( getApplicationContext(), MainActivity.class));
+                   // startActivity(new Intent( getApplicationContext(), MainActivity.class));
+
+                    mWifiAccessPoint = new WifiAccessPoint(getApplicationContext());
+                    mWifiAccessPoint.Start();
+
+//                    mWifiServiceSearcher = new WifiServiceSearcher(that);
+//                    mWifiServiceSearcher.Start();
+
                 }else{
                     Toast.makeText(getApplicationContext() , "Server is already started" , Toast.LENGTH_SHORT).show();
                 }
@@ -58,6 +69,7 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 if( Sdata.getServerStatus()==true ) {
                     serverHelper.stopService();
+                    mWifiAccessPoint.Stop();
                 }else{
                     Toast.makeText(getApplicationContext() , "Server is already closed" , Toast.LENGTH_SHORT).show();
                 }
