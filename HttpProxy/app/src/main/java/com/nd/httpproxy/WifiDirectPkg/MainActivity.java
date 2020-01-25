@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.text.format.Formatter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nd.httpproxy.R;
 
@@ -42,10 +44,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    WifiManager wifiManager = null;
     WifiServiceSearcher    mWifiServiceSearcher = null;
     WifiAccessPoint        mWifiAccessPoint = null;
     WifiConnection         mWifiConnection = null;
     Boolean serviceRunning = false;
+
 
     //change me  to be dynamic!!
     public String CLIENT_PORT_INSTANCE = "38765";
@@ -86,22 +90,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_wifi_direct);
 
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-        Button showIPButton = (Button) findViewById(R.id.button3);
-        showIPButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyP2PHelper.printLocalIpAddresses(that);
-            }
-        });
-
-        Button clearButton = (Button) findViewById(R.id.button2);
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((TextView) findViewById(R.id.debugdataBox)).setText("");
-            }
-        });
 
         Button toggleButton = (Button) findViewById(R.id.buttonToggle);
         toggleButton.setOnClickListener(new View.OnClickListener() {
@@ -125,14 +115,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                     print_line("","Stopped");
                 }else{
-                    serviceRunning = true;
-                    print_line("","Started");
 
-                    mWifiAccessPoint = new WifiAccessPoint(that);
-                    mWifiAccessPoint.Start();
+                    //check the wifi is on/off
 
-                    mWifiServiceSearcher = new WifiServiceSearcher(that);
-                    mWifiServiceSearcher.Start();
+                    if( wifiManager.isWifiEnabled()==true ){
+                        serviceRunning = true;
+                        print_line("","Started");
+
+                        mWifiAccessPoint = new WifiAccessPoint(that);
+                        mWifiAccessPoint.Start();
+
+                        mWifiServiceSearcher = new WifiServiceSearcher(that);
+                        mWifiServiceSearcher.Start();
+                    }else {
+                        //check the wifi is on and show the error or not.
+                        Toast.makeText(getApplicationContext(), "Please turn on the wifi" , Toast.LENGTH_LONG).show();
+
+                    }
                 }
             }
         });
