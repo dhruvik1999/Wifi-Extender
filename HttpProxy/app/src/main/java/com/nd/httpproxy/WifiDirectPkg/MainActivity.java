@@ -108,43 +108,52 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if( wifiManager.isWifiEnabled()==false ){
-                    wifiManager.setWifiEnabled(true);
+                try {
+
+                    if (wifiManager.isWifiEnabled() == false) {
+                        wifiManager.setWifiEnabled(true);
+                    }
+                    serviceRunning = true;
+                    print_line("", "Started");
+
+                    mWifiAccessPoint = new WifiAccessPoint(that);
+                    mWifiAccessPoint.Start();
+
+                    mWifiServiceSearcher = new WifiServiceSearcher(that);
+                    mWifiServiceSearcher.Start();
+
+                    serverHelper.startService(Sdata.getPort(), Sdata.getNameOfServer());
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-                serviceRunning = true;
-                print_line("","Started");
-
-                mWifiAccessPoint = new WifiAccessPoint(that);
-                mWifiAccessPoint.Start();
-
-                mWifiServiceSearcher = new WifiServiceSearcher(that);
-                mWifiServiceSearcher.Start();
-
-                serverHelper.startService(Sdata.getPort(), Sdata.getNameOfServer());
             }
         });
 
         mStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serviceRunning = false;
-                if(mWifiAccessPoint != null){
-                    mWifiAccessPoint.Stop();
-                    mWifiAccessPoint = null;
-                }
+                try {
+                    serviceRunning = false;
+                    if (mWifiAccessPoint != null) {
+                        mWifiAccessPoint.Stop();
+                        mWifiAccessPoint = null;
+                    }
 
-                if(mWifiServiceSearcher != null){
-                    mWifiServiceSearcher.Stop();
-                    mWifiServiceSearcher = null;
-                }
+                    if (mWifiServiceSearcher != null) {
+                        mWifiServiceSearcher.Stop();
+                        mWifiServiceSearcher = null;
+                    }
 
-                if(mWifiConnection != null) {
-                    mWifiConnection.Stop();
-                    mWifiConnection = null;
-                }
+                    if (mWifiConnection != null) {
+                        mWifiConnection.Stop();
+                        mWifiConnection = null;
+                    }
 
-                serverHelper.stopService();
-                print_line("","Stopped");
+                    serverHelper.stopService();
+                    print_line("", "Stopped");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
