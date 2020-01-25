@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     MainActivity that = this;
 
-    MyTextSpeech mySpeech = null;
 
     MainBCReceiver mBRReceiver;
     private IntentFilter filter;
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
     GroupOwnerSocketHandler  groupSocket = null;
     ClientSocketHandler clientSocket = null;
-    ChatManager chat = null;
     Handler myHandler  = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -75,17 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
                     print_line("","Got message: " + readMessage);
 
-                    mySpeech.speak(readMessage);
+
                     break;
 
                 case MY_HANDLE:
                     Object obj = msg.obj;
-                    chat = (ChatManager) obj;
 
-                    String helloBuffer = "Hello There from " +  chat.getSide() + " :" + Build.VERSION.SDK_INT;
 
-                    chat.write(helloBuffer.getBytes());
-                    print_line("","Wrote message: " + helloBuffer);
             }
         }
     };
@@ -101,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_wifi_direct);
 
-        mySpeech = new MyTextSpeech(this);
 
         Button toggleButton = (Button) findViewById(R.id.buttonToggle);
         toggleButton.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
             }else if (WifiServiceSearcher.DSS_WIFISS_PEERCOUNT.equals(action)) {
                 int s = intent.getIntExtra(WifiServiceSearcher.DSS_WIFISS_COUNT, -1);
                 print_line("SS", "found " + s + " peers");
-                mySpeech.speak(s+ " peers discovered.");
+
 
             }else if (WifiServiceSearcher.DSS_WIFISS_PEERAPINFO.equals(action)) {
                 String s = intent.getStringExtra(WifiServiceSearcher.DSS_WIFISS_INFOTEXT);
@@ -239,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
                     mWifiConnection = new WifiConnection(that,networkSSID,networkPass);
                     mWifiConnection.SetInetAddress(ipAddress);
-                    mySpeech.speak("found accesspoint");
+
                 }
             }else if (WifiConnection.DSS_WIFICON_VALUES.equals(action)) {
                 String s = intent.getStringExtra(WifiConnection.DSS_WIFICON_MESSAGE);
@@ -265,12 +258,12 @@ public class MainActivity extends AppCompatActivity {
                     conStatus = "PreConnecting";
                 }else if(status == WifiConnection.ConectionStateConnecting) {
                     conStatus = "Connecting";
-                    mySpeech.speak("Accesspoint connected");
+
                 }else if(status == WifiConnection.ConectionStateConnected) {
                     conStatus = "Connected";
                 }else if(status == WifiConnection.ConectionStateDisconnected) {
                     conStatus = "Disconnected";
-                    mySpeech.speak("Accesspoint Disconnected");
+
                     if(mWifiConnection != null) {
                         mWifiConnection.Stop();
                         mWifiConnection = null;

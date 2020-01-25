@@ -19,7 +19,6 @@ public class ClientSocketHandler extends Thread {
     LocalBroadcastManager broadcaster;
     private static final String TAG = "ClientSocketHandler";
     private Handler handler;
-    private ChatManager chat;
     private String mAddress;
     private int mPort;
 
@@ -37,8 +36,7 @@ public class ClientSocketHandler extends Thread {
             socket.bind(null);
             socket.connect(new InetSocketAddress(mAddress,mPort), 5000);
             Log.d(TAG, "Launching the I/O handler");
-            chat = new ChatManager(socket, handler, "Client");
-            new Thread(chat).start();
+
         } catch (Exception e) {
             if(broadcaster != null) {
                 Intent intent = new Intent(DSS_CLIENT_VALUES);
@@ -58,10 +56,5 @@ public class ClientSocketHandler extends Thread {
         }
     }
 
-
-
-    public ChatManager getChat() {
-        return chat;
-    }
 
 }

@@ -1,6 +1,5 @@
 package com.nd.httpproxy.Guid;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +12,8 @@ import android.widget.ToggleButton;
 import com.nd.httpproxy.DB.Sdata;
 import com.nd.httpproxy.R;
 import com.nd.httpproxy.ServerHelper;
-import com.nd.httpproxy.WifiDirectPkg.MainActivity;
 import com.nd.httpproxy.WifiDirectPkg.WifiAccessPoint;
 import com.nd.httpproxy.WifiDirectPkg.WifiConnection;
-import com.nd.httpproxy.WifiDirectPkg.WifiServiceSearcher;
 
 public class Home extends AppCompatActivity {
 
