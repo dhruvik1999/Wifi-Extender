@@ -23,6 +23,22 @@
         android:textSize="20dp"
         />
 
+    <Button
+        android:id="@+id/join_server"
+        android:layout_width="wrap_content"
+        android:padding="25dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/make_server"
+        android:background="@drawable/roundbutton"
+        android:text="Join\n Server"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        />
+
+
     <TextView
         android:layout_below="@+id/make_server"
         android:layout_width="match_parent"

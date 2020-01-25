@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
         timeHandler  = new Handler();
         mStatusChecker.run();
+        // This will ...
     }
     @Override
     public void onDestroy() {
