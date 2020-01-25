@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nd.httpproxy.Guid.Home;
 import com.nd.httpproxy.R;
 
 import java.net.InetAddress;
@@ -127,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
 
                         mWifiServiceSearcher = new WifiServiceSearcher(that);
                         mWifiServiceSearcher.Start();
+
+                        startActivity(new Intent( getApplicationContext() , Home.class));
+
                     }else {
                         //check the wifi is on and show the error or not.
                         Toast.makeText(getApplicationContext(), "Please turn on the wifi" , Toast.LENGTH_LONG).show();

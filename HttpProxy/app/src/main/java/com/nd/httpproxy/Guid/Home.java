@@ -1,5 +1,6 @@
 package com.nd.httpproxy.Guid;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ToggleButton;
 import com.nd.httpproxy.DB.Sdata;
 import com.nd.httpproxy.R;
 import com.nd.httpproxy.ServerHelper;
+import com.nd.httpproxy.WifiDirectPkg.MainActivity;
 
 public class Home extends AppCompatActivity {
 
@@ -44,6 +46,7 @@ public class Home extends AppCompatActivity {
                 if( Sdata.getServerStatus() == false ) {
                     serverHelper.startService(Sdata.getPort(), Sdata.getNameOfServer());
                     serverHelper.startLogs(tv_logs);
+                    startActivity(new Intent( getApplicationContext(), MainActivity.class));
                 }else{
                     Toast.makeText(getApplicationContext() , "Server is already started" , Toast.LENGTH_SHORT).show();
                 }
