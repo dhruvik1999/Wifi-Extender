@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:padding="25dp"
+    tools:context=".Guid.DetailsForm">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/data_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/data_input1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:imeOptions="actionDone"
+                android:textColorHint="@color/green">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/name_of_server"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name of server"
+                    android:textColor="@color/green"
+                    android:textColorHint="@color/green"
+                    android:imeOptions="actionDone"
+                    android:textSize="25dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/data_input2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/data_input1"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:textColorHint="@color/green">
+
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/port_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name_of_server"
+                    android:hint="Port"
+                    android:textColor="@color/green"
+                    android:textColorHint="@color/green"
+                    android:textSize="25dp" />
+
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/type_of_server"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/data_input"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/proxy_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Type of proxy server "
+                android:textColor="@color/green"
+                android:textColorHint="@color/green"
+                android:textSize="25dp" />
+
+            <RadioGroup
+                android:id="@+id/type_of_proxy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/proxy_type"
+                android:textColor="@color/green"
+                android:textColorHint="@color/green">
+
+                <RadioButton
+                    android:id="@+id/http_radio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="HTTP"
+                    android:textColor="@color/green"
+                    android:textColorHint="@color/green" />
+
+                <RadioButton
+                    android:id="@+id/https_radio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="HTTPS"
+                    android:textColor="@color/green"
+                    android:textColorHint="@color/green" />
+            </RadioGroup>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/speed_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/type_of_server"
+            android:layout_marginTop="25dp"
+            android:padding="10dp">
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/data_speed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical"
+                android:textColorHint="@color/green">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/speed_of_server"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Speed of server (1-100%)"
+                    android:textColor="@color/green"
+                    android:textColorHint="@color/green"
+                    android:textSize="25dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/speed_input">
+
+            <Button
+                android:id="@+id/save_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/roundbutton"
+                android:text="save"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
