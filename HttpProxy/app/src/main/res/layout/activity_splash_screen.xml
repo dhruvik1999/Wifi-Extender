@@ -16,7 +16,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="-13dp"
-        android:layout_marginTop="342dp"
+        android:layout_marginTop="300dp"
         android:fontFamily="@font/biorhyme_light"
         android:gravity="center"
         android:text="Wifi Extender"
@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/tv_1" />
 
 </RelativeLayout>
