@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -98,12 +99,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_wifi_direct);
 
         init();
+        final WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
 
 
 
         mStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if( wifiManager.isWifiEnabled()==false ){
+                    wifiManager.setWifiEnabled(true);
+                }
                 serviceRunning = true;
                 print_line("","Started");
 
