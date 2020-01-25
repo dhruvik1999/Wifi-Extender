@@ -35,7 +35,7 @@ public class MakeServer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Join server" , Toast.LENGTH_LONG).show();
-                startActivity(new Intent( getApplicationContext() , MainActivity.class ));
+                startActivity(new Intent( getApplicationContext() , JoinServer.class ));
             }
         });
 

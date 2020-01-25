@@ -172,14 +172,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void init(){
 
-        mPort = this.findViewById(R.id.show_port);
-        mName = this.findViewById(R.id.show_name);
+        mPort = this.findViewById(R.id.show_port_x);
+        mName = this.findViewById(R.id.show_name_x);
         mUSername = this.findViewById(R.id.tv_username);
         mPassword = this.findViewById(R.id.tv_password);
         mLogs = this.findViewById(R.id.tv_logs);
 
         mStart = this.findViewById(R.id.btn_start);
         mStop = this.findViewById(R.id.btn_stop);
+
+        mName.setText( Sdata.getNameOfServer() );
+        mPort.setText( Sdata.getPort()+"" );
+
+        mUSername.setText( Sdata.getUsername() );
+        mPassword.setText( Sdata.getPassword() );
     }
 
     @Override

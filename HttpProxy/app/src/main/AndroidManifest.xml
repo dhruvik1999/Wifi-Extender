@@ -3,7 +3,9 @@
     package="com.nd.httpproxy">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.wifi.direct" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -25,31 +27,37 @@
         android:name=".Service.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:screenOrientation="portrait"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Guid.Help"
-            android:theme="@style/MyTheme"/>
-        <activity android:name=".Guid.DetailsForm"
+        <activity android:name=".Guid.JoinServer"></activity>
+        <activity
+            android:name=".Guid.Help"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".Guid.DetailsForm"
             android:theme="@style/MyTheme"
-            android:windowSoftInputMode="adjustPan"
-            />
-        <activity android:name=".Guid.MakeServer"
-            android:theme="@style/MyTheme"/>
-        <activity android:name=".Guid.Settings"
-            android:theme="@style/MyTheme"/>
-        <activity android:name=".Guid.Guid"
-            android:theme="@style/MyTheme"/>
-        <activity android:name=".MainActivity"
-            android:theme="@style/MyTheme"/>
-        <activity android:name=".WifiDirectPkg.MainActivity"
-            android:theme="@style/MyTheme"/>
-
-        <activity android:name=".Guid.SplashScreen"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Guid.MakeServer"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".Guid.Settings"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".Guid.Guid"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".WifiDirectPkg.MainActivity"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".Guid.SplashScreen"
             android:theme="@style/MyTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,6 +68,7 @@
         <service
             android:name=".Service.ProxyService"
             android:enabled="true" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

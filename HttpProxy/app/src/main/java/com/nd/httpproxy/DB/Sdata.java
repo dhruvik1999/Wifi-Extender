@@ -5,6 +5,37 @@ public class Sdata {
     static public int port = 8081;
     static public String nameOfServer = "Jarvis";
     static public boolean serverStatus = false;
+    static public String username = "username";
+    static public String password = "password";
+
+    public static void setServerStatus(boolean serverStatus) {
+        Sdata.serverStatus = serverStatus;
+    }
+
+    public static void setUsername(String username) {
+        Sdata.username = username;
+    }
+
+    public static void setPassword(String password) {
+        Sdata.password = password;
+    }
+
+
+
+    public static boolean isServerStatus() {
+        return serverStatus;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+
+
 
     public static int getPort() {
         return port;
