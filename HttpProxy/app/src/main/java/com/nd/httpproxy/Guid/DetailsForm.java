@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.nd.httpproxy.DB.Sdata;
 import com.nd.httpproxy.R;
+import com.nd.httpproxy.WifiDirectPkg.MainActivity;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -41,7 +42,7 @@ public class DetailsForm extends AppCompatActivity {
                     String nameOfServer = et_name.getText().toString();
                     String speed = et_speed.getText().toString();
                     if( validation( port , nameOfServer , speed) == true){
-                        startActivity(new Intent(getApplicationContext() , Home.class));
+                        startActivity(new Intent(getApplicationContext() , MainActivity.class));
                         //startActivity( new Intent(getApplicationContext() , MainActivity.class) );
                     }
                 }catch (Exception e){

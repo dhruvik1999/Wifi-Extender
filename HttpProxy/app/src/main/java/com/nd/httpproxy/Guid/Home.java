@@ -49,7 +49,7 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 if( Sdata.getServerStatus() == false ) {
                     serverHelper.startService(Sdata.getPort(), Sdata.getNameOfServer());
-                    serverHelper.startLogs(tv_logs);
+                   // serverHelper.startLogs(tv_logs);
                    // startActivity(new Intent( getApplicationContext(), MainActivity.class));
 
                     mWifiAccessPoint = new WifiAccessPoint(getApplicationContext());
@@ -69,7 +69,7 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 if( Sdata.getServerStatus()==true ) {
                     serverHelper.stopService();
-                    mWifiAccessPoint.Stop();
+                    //mWifiAccessPoint.Stop();
                 }else{
                     Toast.makeText(getApplicationContext() , "Server is already closed" , Toast.LENGTH_SHORT).show();
                 }

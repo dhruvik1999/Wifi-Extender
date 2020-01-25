@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.nd.httpproxy.DB.Sdata;
 import com.nd.httpproxy.R;
+import com.nd.httpproxy.ServerHelper;
 
 import java.net.InetAddress;
 
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     MainBCReceiver mBRReceiver;
     private IntentFilter filter;
+    ServerHelper serverHelper;
 
     private int mInterval = 1000; // 1 second by default, can be changed later
     private Handler timeHandler;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             timeHandler.postDelayed(mStatusChecker, mInterval);
         }
     };
+
 
     WifiServiceSearcher    mWifiServiceSearcher = null;
     WifiAccessPoint        mWifiAccessPoint = null;
@@ -86,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        serverHelper = new ServerHelper(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                         mWifiConnection.Stop();
                         mWifiConnection = null;
                     }
+
+                    serverHelper.stopService();
                     print_line("","Stopped");
                 }else{
                     serviceRunning = true;
@@ -124,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
 
                     mWifiServiceSearcher = new WifiServiceSearcher(that);
                     mWifiServiceSearcher.Start();
+
+                    serverHelper.startService(Sdata.getPort(), Sdata.getNameOfServer());
                 }
             }
         });
@@ -157,19 +170,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(mWifiConnection != null) {
-            mWifiConnection.Stop();
-            mWifiConnection = null;
-        }
-        if(mWifiAccessPoint != null){
-            mWifiAccessPoint.Stop();
-            mWifiAccessPoint = null;
-        }
-
-        if(mWifiServiceSearcher != null){
-            mWifiServiceSearcher.Stop();
-            mWifiServiceSearcher = null;
-        }
+//        if(mWifiConnection != null) {
+//            mWifiConnection.Stop();
+//            mWifiConnection = null;
+//        }
+//        if(mWifiAccessPoint != null){
+//            mWifiAccessPoint.Stop();
+//            mWifiAccessPoint = null;
+//        }
+//
+//        if(mWifiServiceSearcher != null){
+//            mWifiServiceSearcher.Stop();
+//            mWifiServiceSearcher = null;
+//        }
 
         timeHandler.removeCallbacks(mStatusChecker);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mBRReceiver);
