@@ -10,10 +10,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
-import com.nd.httpproxy.Guid.Home;
 import com.nd.httpproxy.LogBuilder;
 import com.nd.httpproxy.ProxyServer;
 import com.nd.httpproxy.R;
+import com.nd.httpproxy.WifiDirectPkg.MainActivity;
 
 import static com.nd.httpproxy.Service.App.CHANNEL_ID;
 
@@ -44,7 +44,7 @@ public class ProxyService extends Service {
 
     public void notification(){
 
-        Intent notificationIntent = new Intent(this , Home.class);
+        Intent notificationIntent = new Intent(this , MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , notificationIntent,0  );
         Toast.makeText(getApplicationContext() , "startCommand" , Toast.LENGTH_SHORT).show();
         Notification notification = new NotificationCompat.Builder(this , CHANNEL_ID )

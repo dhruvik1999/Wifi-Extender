@@ -1,61 +1,181 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
+    android:padding="5dp"
+    android:background="@color/black"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:weightSum="1">
 
         <LinearLayout
+            android:layout_weight="10"
+            android:layout_width="match_parent"
+            android:padding="12dp"
+            android:layout_height="0dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:text="WIFI Extender"
+                android:textStyle="bold"
+                android:background="@color/green"
+                android:gravity="center"
+                android:textSize="25dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:padding="5dp"
+            android:background="#141414"
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:weightSum="1"
-            android:layout_marginBottom="10dp">
+            android:weightSum="100">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:weightSum="100"
+                android:padding="7dp"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/buttonToggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/textView1"
-                android:text=" Toggle" />
+                <TextView
+                    android:layout_weight="50"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="Port"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    />
 
-            <TextView
-                android:id="@+id/CountBox"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"/>
-            <TextView
-                android:id="@+id/TimeBox"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"/>
+                <TextView
+                    android:layout_weight="50"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="Name"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="45"
+                android:weightSum="100"
+                android:padding="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/show_port"
+                    android:layout_weight="50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="100"
+                    android:textColor="@color/green"
+                    android:gravity="center"
+                    android:textSize="17dp"
+                    />
+
+                <TextView
+                    android:id="@+id/show_name"
+                    android:layout_weight="50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="Jarvis"
+                    android:gravity="center"
+                    android:textColor="@color/green"
+                    android:textSize="17dp"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
 
 
-        <ScrollView
-            android:id="@+id/SCROLLER_ID"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:fillViewport="true">
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_weight="60"
+            android:orientation="vertical"
+            android:layout_height="0dp">
 
             <TextView
-                android:id="@+id/debugdataBox"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"/>
+                android:id="@+id/tv_username"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="User name"
+                android:textColor="@color/green"
+                android:gravity="center"
+                />
 
-        </ScrollView>
+
+            <TextView
+                android:id="@+id/tv_password"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Password"
+                android:textColor="@color/green"
+                android:gravity="center"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_logs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="LOGS"
+                android:textColor="@color/green" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:padding="5dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+
+            <Button
+                android:id="@+id/btn_start"
+                android:layout_weight="50"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:text="Start"
+                android:layout_marginRight="8dp"
+                android:paddingRight="5dp"
+                android:textSize="17dp"
+                android:background="@color/green"
+                />
+
+            <Button
+                android:id="@+id/btn_stop"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="50"
+                android:text="Stop"
+                android:paddingLeft="5dp"
+                android:background="#E62424"
+                android:textSize="17dp"
+
+                />
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
-</RelativeLayout>

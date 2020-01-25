@@ -14,6 +14,7 @@ import android.text.format.Formatter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nd.httpproxy.DB.Sdata;
 import com.nd.httpproxy.R;
@@ -41,11 +42,12 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             // call function to update timer
             timeCounter = timeCounter + 1;
-            ((TextView) findViewById(R.id.TimeBox)).setText("T: " + timeCounter);
             timeHandler.postDelayed(mStatusChecker, mInterval);
         }
     };
 
+    TextView mPort,mPassword,mName,mUSername,mLogs;
+    Button mStart,mStop;
 
     WifiServiceSearcher    mWifiServiceSearcher = null;
     WifiAccessPoint        mWifiAccessPoint = null;
@@ -95,44 +97,51 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_wifi_direct);
 
+        init();
 
-        Button toggleButton = (Button) findViewById(R.id.buttonToggle);
-        toggleButton.setOnClickListener(new View.OnClickListener() {
+
+
+        mStart.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if(serviceRunning){
-                    serviceRunning = false;
-                    if(mWifiAccessPoint != null){
-                        mWifiAccessPoint.Stop();
-                        mWifiAccessPoint = null;
-                    }
+            public void onClick(View view) {
+                serviceRunning = true;
+                print_line("","Started");
 
-                    if(mWifiServiceSearcher != null){
-                        mWifiServiceSearcher.Stop();
-                        mWifiServiceSearcher = null;
-                    }
+                mWifiAccessPoint = new WifiAccessPoint(that);
+                mWifiAccessPoint.Start();
 
-                    if(mWifiConnection != null) {
-                        mWifiConnection.Stop();
-                        mWifiConnection = null;
-                    }
+                mWifiServiceSearcher = new WifiServiceSearcher(that);
+                mWifiServiceSearcher.Start();
 
-                    serverHelper.stopService();
-                    print_line("","Stopped");
-                }else{
-                    serviceRunning = true;
-                    print_line("","Started");
-
-                    mWifiAccessPoint = new WifiAccessPoint(that);
-                    mWifiAccessPoint.Start();
-
-                    mWifiServiceSearcher = new WifiServiceSearcher(that);
-                    mWifiServiceSearcher.Start();
-
-                    serverHelper.startService(Sdata.getPort(), Sdata.getNameOfServer());
-                }
+                serverHelper.startService(Sdata.getPort(), Sdata.getNameOfServer());
             }
         });
+
+        mStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                serviceRunning = false;
+                if(mWifiAccessPoint != null){
+                    mWifiAccessPoint.Stop();
+                    mWifiAccessPoint = null;
+                }
+
+                if(mWifiServiceSearcher != null){
+                    mWifiServiceSearcher.Stop();
+                    mWifiServiceSearcher = null;
+                }
+
+                if(mWifiConnection != null) {
+                    mWifiConnection.Stop();
+                    mWifiConnection = null;
+                }
+
+                serverHelper.stopService();
+                print_line("","Stopped");
+            }
+        });
+
+
         mBRReceiver = new MainBCReceiver();
         filter = new IntentFilter();
         filter.addAction(WifiAccessPoint.DSS_WIFIAP_VALUES);
@@ -160,6 +169,19 @@ public class MainActivity extends AppCompatActivity {
         timeHandler  = new Handler();
         mStatusChecker.run();
     }
+
+    public void init(){
+
+        mPort = this.findViewById(R.id.show_port);
+        mName = this.findViewById(R.id.show_name);
+        mUSername = this.findViewById(R.id.tv_username);
+        mPassword = this.findViewById(R.id.tv_password);
+        mLogs = this.findViewById(R.id.tv_logs);
+
+        mStart = this.findViewById(R.id.btn_start);
+        mStop = this.findViewById(R.id.btn_stop);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -183,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void print_line(String who,String line) {
         timeCounter = 0;
-        ((TextView)findViewById(R.id.debugdataBox)).append(who + " : " + line + "\n");
+        mLogs.append(who + " : " + line + "\n");
     }
 
 
@@ -196,6 +218,15 @@ public class MainActivity extends AppCompatActivity {
             if (WifiAccessPoint.DSS_WIFIAP_VALUES.equals(action)) {
                 String s = intent.getStringExtra(WifiAccessPoint.DSS_WIFIAP_MESSAGE);
                 print_line("AP", s);
+
+                String[] sss = s.split(":");
+
+                if( sss.length == 5 ){
+                    mUSername.setText( "username : " + sss[2] );
+                    mPassword.setText( "password : " + sss[3] );
+                }
+
+
 
             }else if (WifiAccessPoint.DSS_WIFIAP_SERVERADDRESS.equals(action)) {
                 InetAddress address = (InetAddress)intent.getSerializableExtra(WifiAccessPoint.DSS_WIFIAP_INETADDRESS);
@@ -216,6 +247,8 @@ public class MainActivity extends AppCompatActivity {
                 String[] separated = s.split(":");
                 print_line("SS", "found SSID:" + separated[1] + ", pwd:"  + separated[2]+ "IP: " + separated[3]);
 
+
+
                 if(mWifiConnection == null) {
                     if(mWifiAccessPoint != null){
                         mWifiAccessPoint.Stop();
@@ -229,6 +262,9 @@ public class MainActivity extends AppCompatActivity {
                     final String networkSSID = separated[1];
                     final String networkPass = separated[2];
                     final String ipAddress   = separated[3];
+
+
+
 
                     mWifiConnection = new WifiConnection(that,networkSSID,networkPass);
                     mWifiConnection.SetInetAddress(ipAddress);
