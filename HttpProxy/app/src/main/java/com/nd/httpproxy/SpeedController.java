@@ -14,22 +14,26 @@ public class SpeedController {
     boolean lock1,lock2;
 
     public static void addPacketToQueue(String ip, Socket socket) {
-        if (!map.containsKey(ip)) {
-            Queue<Integer> newQueue = new LinkedList<Integer>();
-            map.put(ip, (LinkedList) newQueue);
-        }
-        synchronized (map.get(ip)) {
+        synchronized (map) {
+            if (!map.containsKey(ip)) {
+                Queue<Integer> newQueue = new LinkedList<Integer>();
+                map.put(ip, (LinkedList) newQueue);
+            }
+
             map.get(ip).add(socket);
         }
+
     }
 
     public static ArrayList<Socket> removePacketsFromQueue() {
         List<Socket> packetsToSend = new ArrayList<Socket>();
-        for (Map.Entry<String, LinkedList<Socket>> entry : map.entrySet()) {
-            if (!entry.getValue().isEmpty())
-                synchronized ( entry.getValue() ) {
-                    packetsToSend.add(entry.getValue().remove());
-                }
+        synchronized (map) {
+            for (Map.Entry<String, LinkedList<Socket>> entry : map.entrySet()) {
+                if (!entry.getValue().isEmpty())
+
+                        packetsToSend.add(entry.getValue().remove());
+
+            }
         }
         return (ArrayList<Socket>) packetsToSend;
     }
