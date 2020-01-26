@@ -50,6 +50,10 @@ public class ProxyServer extends Thread {
                 while (serverSocket.isClosed()==false) {
                     try {
                         Socket socket = serverSocket.accept();
+
+                        // apply load balancing
+
+
                         LogBuilder.addLog("Client" , socket.getInetAddress().toString() + " Connected Successfully");
                         if (!socket.getInetAddress().isLoopbackAddress()) {
                             ProxyConnection parser = new ProxyConnection(socket);
