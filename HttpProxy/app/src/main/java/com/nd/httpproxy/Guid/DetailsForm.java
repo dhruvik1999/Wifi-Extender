@@ -19,6 +19,8 @@ import com.nd.httpproxy.WifiDirectPkg.MainActivity;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import static java.lang.Integer.parseInt;
+
 public class DetailsForm extends AppCompatActivity {
 
     //find the valid range of port in android
@@ -60,7 +62,7 @@ public class DetailsForm extends AppCompatActivity {
         int reservedRange = 1024;
         int port = 8080;
         try{
-            port = Integer.parseInt(Sport);
+            port = parseInt(Sport);
         }catch (Exception e){
             showMsg("Port number should be valid integer only");
             e.printStackTrace();
@@ -74,7 +76,7 @@ public class DetailsForm extends AppCompatActivity {
         }
 
         try{
-            int sp = Integer.parseInt(speed);
+            int sp = parseInt(speed);
             if( 1> sp || sp>100 ){
                 showMsg("Speed of server should be integer between 1-100%");
                 return false;
@@ -94,9 +96,15 @@ public class DetailsForm extends AppCompatActivity {
             return false;
         }
 
-        Sdata.setPort(port);
-        Sdata.setNameOfServer(name);
-        showMsg("Server saved successfully.");
+        try {
+            Sdata.setPort(port);
+            Sdata.setNameOfServer(name);
+            Sdata.setSpeed(parseInt(et_speed.getText().toString()));
+            showMsg("Server saved successfully.");
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText( getApplicationContext() , "Error while collecting the data ..." , Toast.LENGTH_SHORT ).show();
+        }
 
 
         return true;

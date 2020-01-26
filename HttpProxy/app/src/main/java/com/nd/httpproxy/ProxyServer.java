@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import com.google.common.collect.Lists;
+import com.nd.httpproxy.DB.Sdata;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -121,6 +123,12 @@ class SocketSender extends Thread{
     public void run(){
 
         while (true){
+
+            try{
+                Thread.sleep( (int)(100-Sdata.getPort())*100 );
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
 
             packetsToSend = SpeedController.removePacketsFromQueue();

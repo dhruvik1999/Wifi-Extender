@@ -7,6 +7,17 @@ public class Sdata {
     static public boolean serverStatus = false;
     static public String username = "username";
     static public String password = "password";
+    static public double speed = 0;
+
+
+    public static double getSpeed() {
+        return speed;
+    }
+
+    public static void setSpeed(double speed) {
+        Sdata.speed = speed;
+    }
+
 
     public static void setServerStatus(boolean serverStatus) {
         Sdata.serverStatus = serverStatus;
